@@ -38,6 +38,10 @@ public class ImageResultFactory {
             imageResult.setFullURL(result.getString("url"));
             // ThumbURL
             imageResult.setThumbURL(result.getString("tbUrl"));
+            // Thumb width
+            imageResult.setThumbWidth(result.getString("tbWidth"));
+            // Thumb height
+            imageResult.setThumbHeight(result.getString("tbHeight"));
 
             // add the model to ArrayList imageResults
             imageResults.add(imageResult);
