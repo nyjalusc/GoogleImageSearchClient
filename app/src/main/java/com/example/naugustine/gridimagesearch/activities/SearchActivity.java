@@ -12,6 +12,7 @@ import android.widget.EditText;
 import com.example.naugustine.gridimagesearch.R;
 import com.example.naugustine.gridimagesearch.adapters.ImageResultsAdapter;
 import com.example.naugustine.gridimagesearch.factories.ImageResultFactory;
+import com.example.naugustine.gridimagesearch.interfaces.EndlessScrollListener;
 import com.example.naugustine.gridimagesearch.models.ImageResult;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -24,10 +25,13 @@ import java.util.ArrayList;
 
 public class SearchActivity extends ActionBarActivity {
     private EditText etQuery;
+    private String query;
     private com.etsy.android.grid.StaggeredGridView gvResults;
     private ArrayList<ImageResult> imageResults;
     private ImageResultFactory imageResultFactory;
     private ImageResultsAdapter aImageResults;
+    private static final String SEARCHURL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=";
+    public static final int RESULTS_PER_PAGE = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,37 @@ public class SearchActivity extends ActionBarActivity {
                 startActivity(i);
             }
         });
+        gvResults.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to your AdapterView
+                loadDataFromApi(page);
+            }
+        });
+    }
+
+    // Executes Http request
+    private void loadDataFromApi(int page) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        // Construct complete url;
+        String paginatedSearchURL = getCompleteURL(page);
+        // Execute GET request
+        client.get(paginatedSearchURL, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                imageResultFactory = new ImageResultFactory();
+                // Load the models in adapter; this will also modify the data in underlying datasource
+                // No need to use notifyDataSetChanged() if using this method
+                aImageResults.addAll(imageResultFactory.getImageResults(response));
+            }
+        });
+    }
+
+    // Constructs the complete URL
+    private String getCompleteURL(int page) {
+        // rsz[0, 8] - number of result to return per page; page[0, 64] values must be multiples of RESULTS_PER_PAGE (including 0)
+        return SEARCHURL + query + "&rsz=" + RESULTS_PER_PAGE + "&start=" + page;
     }
 
     @Override
@@ -91,19 +126,11 @@ public class SearchActivity extends ActionBarActivity {
 
     // Fired when search button is clicked
     public void onImageSearch(View view) {
-        String query = etQuery.getText().toString();
-        AsyncHttpClient client = new AsyncHttpClient();
-        String searchURL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + query + "&rsz=8";
-        client.get(searchURL, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                imageResultFactory = new ImageResultFactory();
-                // Clear old data
-                aImageResults.clear();
-                // Load the models in adapter; this will also modify the data in underlying datasource
-                // No need to use notifyDataSetChanged() if using this method
-                aImageResults.addAll(imageResultFactory.getImageResults(response));
-            }
-        });
+        // Get the query string
+        query = etQuery.getText().toString();
+        // Clear old data
+        aImageResults.clear();
+        // Fetch first page of result and populate it in the adapter
+        loadDataFromApi(0);
     }
 }
