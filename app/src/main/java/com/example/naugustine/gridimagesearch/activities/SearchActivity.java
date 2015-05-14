@@ -2,12 +2,13 @@ package com.example.naugustine.gridimagesearch.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 
 import com.example.naugustine.gridimagesearch.R;
 import com.example.naugustine.gridimagesearch.adapters.ImageResultsAdapter;
@@ -24,8 +25,7 @@ import java.util.ArrayList;
 
 
 public class SearchActivity extends ActionBarActivity {
-    private EditText etQuery;
-    private String query;
+    private String searchQuery;
     private com.etsy.android.grid.StaggeredGridView gvResults;
     private ArrayList<ImageResult> imageResults;
     private ImageResultFactory imageResultFactory;
@@ -37,7 +37,7 @@ public class SearchActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         searchClient = new SearchClient();
-        setupViews();
+        setupViewListeners();
         setupAdapter();
     }
 
@@ -52,8 +52,7 @@ public class SearchActivity extends ActionBarActivity {
     }
 
     // Gets references to views
-    private void setupViews() {
-        etQuery = (EditText) findViewById(R.id.etQuery);
+    private void setupViewListeners() {
         gvResults = (com.etsy.android.grid.StaggeredGridView) findViewById(R.id.gvResults);
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,8 +73,7 @@ public class SearchActivity extends ActionBarActivity {
             public void onLoadMore(int page, int totalItemsCount) {
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to your AdapterView
-//                loadDataFromApi(page);
-                loadData(query, page);
+                loadData(searchQuery, page);
             }
         });
     }
@@ -98,6 +96,26 @@ public class SearchActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        // Get reference to SearchView
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchQuery = query;
+                aImageResults.clear();
+                // Fetch first page of result and populate it in the adapter
+                loadData(query, 0);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+
+        });
+
         return true;
     }
 
@@ -114,15 +132,5 @@ public class SearchActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    // Fired when search button is clicked
-    public void onImageSearch(View view) {
-        // Get the query string
-        query = etQuery.getText().toString();
-        // Clear old data
-        aImageResults.clear();
-        // Fetch first page of result and populate it in the adapter
-        loadData(query, 0);
     }
 }
