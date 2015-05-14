@@ -10,5 +10,12 @@
         android:id="@+id/gvResults"
         app:item_margin="8dp"
         app:column_count="@integer/grid_column_count"/>
+    <ProgressBar
+        android:id="@+id/pbLoadingImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="visible" />
 
 </RelativeLayout>

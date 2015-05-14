@@ -29,13 +29,13 @@ public class ImageDisplayActivity extends ActionBarActivity {
     // Extracts the model object from intent and loads the image in the view
     private void showFullImage() {
         // Get reference to the progressbar
-        progressBar = (ProgressBar) findViewById(R.id.pbLoading);
+        progressBar = (ProgressBar) findViewById(R.id.pbLoadingImage);
         // Get the url from intent
         ImageResult imageResult = (ImageResult) getIntent().getSerializableExtra("result");
         // Find the image
         ImageView ivImageResult = (ImageView) findViewById(R.id.ivImageResult);
         // Load the image using Picasso
-        Picasso.with(this).load(imageResult.getFullURL()).into(ivImageResult, new Callback() {
+        Picasso.with(this).load(imageResult.getFullURL()).error(R.drawable.error_loading).into(ivImageResult, new Callback() {
             @Override
             public void onSuccess() {
                 progressBar.setVisibility(View.GONE);
@@ -44,7 +44,7 @@ public class ImageDisplayActivity extends ActionBarActivity {
             @Override
             public void onError() {
                 // May be show a dialog fragment
-                Toast.makeText(ImageDisplayActivity.this, "Failed to load", Toast.LENGTH_LONG).show();
+                Toast.makeText(ImageDisplayActivity.this, "Failed to load", Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
             }
         });

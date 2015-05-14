@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.naugustine.gridimagesearch.R;
 import com.example.naugustine.gridimagesearch.adapters.ImageResultsAdapter;
@@ -31,6 +33,7 @@ public class SearchActivity extends ActionBarActivity {
     private ImageResultFactory imageResultFactory;
     private ImageResultsAdapter aImageResults;
     private SearchClient searchClient;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,9 @@ public class SearchActivity extends ActionBarActivity {
         searchClient = new SearchClient();
         setupViewListeners();
         setupAdapter();
+        // Get reference to the progressbar
+        progressBar = (ProgressBar) findViewById(R.id.pbLoadingImage);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     // Instantiates datasources, adapter and the connects the adapter to the view
@@ -84,10 +90,19 @@ public class SearchActivity extends ActionBarActivity {
         searchClient.getImages(query, page, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // Remove the progressbar
+                progressBar.setVisibility(View.GONE);
                 imageResultFactory = new ImageResultFactory();
                 // Load the models in adapter; this will also modify the data in underlying datasource
                 // No need to use notifyDataSetChanged() if using this method
                 aImageResults.addAll(imageResultFactory.getImageResults(response));
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                // Remove the progressbar
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(SearchActivity.this, "Sorry! Failed to fetch results", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -102,6 +117,8 @@ public class SearchActivity extends ActionBarActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                // Show the progress bar while the request is processed
+                progressBar.setVisibility(View.VISIBLE);
                 searchQuery = query;
                 aImageResults.clear();
                 // Fetch first page of result and populate it in the adapter

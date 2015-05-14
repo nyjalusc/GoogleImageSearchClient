@@ -47,7 +47,7 @@ public class ImageResultsAdapter extends ArrayAdapter<ImageResult> {
         double positionHeight = getPositionRatio(imageResult);
         viewHolder.ivImage.setHeightRatio(positionHeight);
         // Remotely download the image data and show it in the view
-        Picasso.with(getContext()).load(imageResult.getThumbURL()).into(viewHolder.ivImage);
+        Picasso.with(getContext()).load(imageResult.getThumbURL()).error(R.drawable.error_loading).into(viewHolder.ivImage);
     }
 
     // Calculates the ratio on the basis of height and width of the image
