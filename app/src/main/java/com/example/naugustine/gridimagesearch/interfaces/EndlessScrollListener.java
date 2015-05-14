@@ -2,8 +2,6 @@ package com.example.naugustine.gridimagesearch.interfaces;
 
 import android.widget.AbsListView;
 
-import com.example.naugustine.gridimagesearch.activities.SearchActivity;
-
 public abstract class EndlessScrollListener implements AbsListView.OnScrollListener {
     // The minimum amount of items to have below your current scroll position
     // before loading more.
@@ -16,6 +14,8 @@ public abstract class EndlessScrollListener implements AbsListView.OnScrollListe
     private boolean loading = true;
     // Sets the starting page index
     private int startingPageIndex = 0;
+    // Results per page
+    private static final int RESULTS_PER_PAGE = 8;
 
     public EndlessScrollListener() {
     }
@@ -56,7 +56,7 @@ public abstract class EndlessScrollListener implements AbsListView.OnScrollListe
         // the visibleThreshold and need to reload more data.
         // If we do need to reload some more data, we execute onLoadMore to fetch the data.
         if (!loading && (totalItemCount - visibleItemCount)<=(firstVisibleItem + visibleThreshold)) {
-            onLoadMore(currentPage * SearchActivity.RESULTS_PER_PAGE, totalItemCount);
+            onLoadMore(currentPage * RESULTS_PER_PAGE, totalItemCount);
             loading = true;
         }
     }
