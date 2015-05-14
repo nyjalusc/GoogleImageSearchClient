@@ -1,39 +1,44 @@
 package com.example.naugustine.gridimagesearch.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.example.naugustine.gridimagesearch.R;
 import com.example.naugustine.gridimagesearch.models.ImageResult;
+import com.example.naugustine.gridimagesearch.views.RetryDialogFragment;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class ImageDisplayActivity extends ActionBarActivity {
 
     private ProgressBar progressBar;
+    private ImageView ivImageResult;
+    private ImageResult imageResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_display);
-        showFullImage();
         // Use the support actionbar and not the old getActionBar()
         getSupportActionBar().hide();
+        showFullImage();
     }
 
     // Extracts the model object from intent and loads the image in the view
-    private void showFullImage() {
+    public void showFullImage() {
         // Get reference to the progressbar
         progressBar = (ProgressBar) findViewById(R.id.pbLoadingImage);
+        // Explicitly setting it to visible because this method is also called from the dialog fragment
+        progressBar.setVisibility(View.VISIBLE);
         // Get the url from intent
-        ImageResult imageResult = (ImageResult) getIntent().getSerializableExtra("result");
+        imageResult = (ImageResult) getIntent().getSerializableExtra("result");
         // Find the image
-        ImageView ivImageResult = (ImageView) findViewById(R.id.ivImageResult);
+        ivImageResult = (ImageView) findViewById(R.id.ivImageResult);
         // Load the image using Picasso
         Picasso.with(this).load(imageResult.getFullURL()).error(R.drawable.error_loading).into(ivImageResult, new Callback() {
             @Override
@@ -44,11 +49,18 @@ public class ImageDisplayActivity extends ActionBarActivity {
             @Override
             public void onError() {
                 // May be show a dialog fragment
-                Toast.makeText(ImageDisplayActivity.this, "Failed to load", Toast.LENGTH_SHORT).show();
+                showAlertDialog();
                 progressBar.setVisibility(View.GONE);
             }
         });
     }
+
+    private void showAlertDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        RetryDialogFragment alertDialog = RetryDialogFragment.newInstance(ivImageResult, imageResult, "Failed to load");
+        alertDialog.show(fm, "fragment_alert");
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
