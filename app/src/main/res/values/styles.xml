@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/MyActionBar</item>
-        <item name="android:colorPrimaryDark">@color/dark_teal_light</item>
+        <item name="android:colorPrimaryDark">@color/teal_dark_light</item>
         <!-- Overlay the actionBar -->
         <item name="android:windowActionBarOverlay">true</item>
 
@@ -14,7 +14,7 @@
     </style>
     <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <!-- Support library compatibility -->
-        <item name="background">@color/dark_teal</item>
+        <item name="background">@color/teal_dark</item>
     </style>
 
 </resources>

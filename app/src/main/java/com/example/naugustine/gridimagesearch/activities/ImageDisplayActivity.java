@@ -1,10 +1,13 @@
 package com.example.naugustine.gridimagesearch.activities;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +17,8 @@ import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -32,10 +37,15 @@ public class ImageDisplayActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // This needs to happen before any content is set for the activity
+        Styling styling = new Styling();
+        // Change the status of the status color
+        styling.changeStatusBarColor();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_display);
-        // Use the support actionbar and not the old getActionBar()
-//        getSupportActionBar().hide();
+        // Change the color of actionbar
+        styling.changeActionBarColor();
+        // Render the detailed image
         showFullImage();
     }
 
@@ -118,5 +128,25 @@ public class ImageDisplayActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
+    }
+
+    // Inner class for logically grouping the styling utility methods
+    private class Styling {
+        private void changeStatusBarColor() {
+            // Window.setStatusBarColor() is only applicable for API 21+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = getWindow();
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(getResources().getColor(R.color.black_light));
+            }
+        }
+
+        private void changeActionBarColor() {
+            Resources res = getResources();
+            android.support.v7.app.ActionBar actionBar;
+            actionBar = getSupportActionBar();
+            // This will make the actionBar transparent
+            actionBar.setBackgroundDrawable(new ColorDrawable(res.getColor(R.color.black_transparent)));
+        }
     }
 }
