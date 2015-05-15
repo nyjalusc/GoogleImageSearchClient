@@ -3,6 +3,6 @@
     <color name="black">#000000</color>
     <color name="black_light">#212121</color>
     <color name="black_transparent">#80000000</color>
-    <color name="teal_dark">#006064</color>
-    <color name="teal_dark_light">#00838F</color>
+    <color name="teal_dark">#00695C</color>
+    <color name="teal_dark_light">#00796B</color>
 </resources>

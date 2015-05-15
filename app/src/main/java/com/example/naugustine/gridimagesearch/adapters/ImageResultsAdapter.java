@@ -6,9 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.etsy.android.grid.util.DynamicHeightImageView;
 import com.example.naugustine.gridimagesearch.R;
 import com.example.naugustine.gridimagesearch.models.ImageResult;
+import com.example.naugustine.gridimagesearch.views.DynamicHeightImageViewCustom;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 public class ImageResultsAdapter extends ArrayAdapter<ImageResult> {
 
     private static class ViewHolder {
-        DynamicHeightImageView ivImage;
+        DynamicHeightImageViewCustom ivImage;
     }
 
     public ImageResultsAdapter(Context context, List<ImageResult> images) {
@@ -31,7 +31,7 @@ public class ImageResultsAdapter extends ArrayAdapter<ImageResult> {
             viewHolder = new ViewHolder();
             // Create a new view from template
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_image_result, parent, false);
-            viewHolder.ivImage = (DynamicHeightImageView) convertView.findViewById(R.id.ivImage);
+            viewHolder.ivImage = (DynamicHeightImageViewCustom) convertView.findViewById(R.id.ivImage);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
