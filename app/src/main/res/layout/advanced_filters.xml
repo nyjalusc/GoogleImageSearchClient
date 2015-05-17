@@ -1,134 +1,161 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/edit_name"
-    android:layout_width="400dp" android:layout_height="600dp"
-    android:background="@color/black_transparent"
-    android:layout_gravity="center" android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
 
-    <!--android:background="#000000ff"-->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:id="@+id/tvTitle"
+        android:background="@color/black_transparent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="@string/advanced_filters"
         android:gravity="center_vertical"
-        android:paddingLeft="10dp"
+        android:paddingLeft="15dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:textColor="#ffffff"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
-    <!--android:background="@color/teal_dark_light_transparent"-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rlSize"
+        android:background="@color/white_background_dialog"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:layout_below="@id/tvTitle">
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvSize"
-            android:layout_alignParentLeft="true"
-            android:text="@string/size_filter"/>
+            android:id="@+id/rlSize"
+            android:layout_alignParentTop="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:id="@+id/tvSize"
+                android:textSize="18sp"
+                android:layout_alignParentLeft="true"
+                android:text="@string/size_filter"/>
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spSize"
-            android:layout_alignParentRight="true"/>
-    </RelativeLayout>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spSize"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rlColor"
-        android:layout_below="@id/rlSize">
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvColor"
-            android:layout_alignParentLeft="true"
-            android:text="@string/color_filter"/>
+            android:id="@+id/rlColor"
+            android:layout_below="@id/rlSize">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvColor"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:text="@string/color_filter"/>
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spColor"
-            android:layout_alignParentRight="true"/>
-    </RelativeLayout>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spColor"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rlType"
-        android:layout_below="@id/rlColor">
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvType"
-            android:layout_alignParentLeft="true"
-            android:text="@string/type_filter"/>
+            android:id="@+id/rlType"
+            android:layout_below="@id/rlColor">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvType"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:text="@string/type_filter"/>
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spType"
-            android:layout_alignParentRight="true"/>
-    </RelativeLayout>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spType"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rlSafetyLevel"
-        android:layout_below="@+id/rlType">
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvSafety"
-            android:layout_alignParentLeft="true"
-            android:text="@string/safety_filter"/>
+            android:id="@+id/rlSafetyLevel"
+            android:layout_below="@+id/rlType">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSafety"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:text="@string/safety_filter"/>
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spSafetyLevel"
-            android:layout_alignParentRight="true"/>
-    </RelativeLayout>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spSafetyLevel"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rlSite"
-        android:layout_below="@+id/rlSafetyLevel">
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvSiteFilter"
-            android:layout_alignParentLeft="true"
-            android:text="@string/site_filter"/>
+            android:id="@+id/rlSite"
+            android:layout_below="@+id/rlSafetyLevel">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSiteFilter"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:text="@string/site_filter"/>
 
-        <EditText
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/etSiteName"
+                android:hint="@string/site_hint"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/tvSiteFilter"/>
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/etSiteName"
-            android:hint="@string/site_hint"
+            android:layout_below="@+id/rlSite"
             android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/tvSiteFilter"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rlSite">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnSave"
-            android:text="Save"
-            android:layout_marginRight="10dp"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnCancel"
-            android:text="Cancel"
-            android:layout_toRightOf="@+id/btnSave"/>
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnSave"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/save_button"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnCancel"
+                android:src="@drawable/cancel_button"
+                android:layout_toRightOf="@+id/btnSave"/>
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

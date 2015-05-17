@@ -6,4 +6,7 @@
     <color name="teal_dark">#00695C</color>
     <color name="teal_dark_light">#00796B</color>
     <color name="teal_dark_light_transparent">#8000796B</color>
+    <color name="white_background_dialog">#F2F5F5F5</color>
+    <color name="teal_text_dialog">#00BFA5</color>
+
 </resources>

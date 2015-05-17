@@ -4,12 +4,11 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.naugustine.gridimagesearch.R;
@@ -49,7 +48,7 @@ public class AdvancedFiltersDialog extends DialogFragment {
 
         // Setup Click listeners for save and cancel button
         // SAVE
-        Button btnSave = (Button) view.findViewById(R.id.btnSave);
+        ImageView btnSave = (ImageView) view.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +58,7 @@ public class AdvancedFiltersDialog extends DialogFragment {
         });
 
         // CANCEL
-        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        ImageView btnCancel = (ImageView) view.findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
