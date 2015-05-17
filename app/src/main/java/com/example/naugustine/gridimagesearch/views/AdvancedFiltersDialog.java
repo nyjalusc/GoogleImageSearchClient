@@ -1,13 +1,14 @@
 package com.example.naugustine.gridimagesearch.views;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -39,29 +40,38 @@ public class AdvancedFiltersDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         advancedFilters = (AdvancedFilters) getArguments().getSerializable("advancedFilterSettings");
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Check styles.xml for the note on problem
+        // Using AlertDialog instead of AlertDialog.builder because dismiss() does not work with .builder class
+        final AlertDialog builder = new AlertDialog.Builder(getActivity(), R.style.CustomDialog).create();
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.advanced_filters, null);
+
+        // Setup Click listeners for save and cancel button
+        // SAVE
+        Button btnSave = (Button) view.findViewById(R.id.btnSave);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveAdvancedFilterSettings();
+                builder.dismiss();
+            }
+        });
+
+        // CANCEL
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder.dismiss();
+            }
+        });
+
         // Populate the values of view
         setViews();
-
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setView(view)
-                // Add action buttons
-                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        saveAdvancedFilterSettings();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-        return builder.create();
+        // Attach the view to the alertdialog builder
+        builder.setView(view);
+        return builder;
     }
 
     // Extract values from the view and save the model
@@ -105,10 +115,7 @@ public class AdvancedFiltersDialog extends DialogFragment {
     // Populates value in dropdown spinner and sets the spinner to custom filter settings
     private void setSpinnerView(Spinner spinner, int textArrayResId, String text) {
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                textArrayResId, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), textArrayResId, R.layout.spinner_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         // Set the spinner to custom settings OR to default values if there are no custom filter settings

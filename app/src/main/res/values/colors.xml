@@ -5,4 +5,5 @@
     <color name="black_transparent">#80000000</color>
     <color name="teal_dark">#00695C</color>
     <color name="teal_dark_light">#00796B</color>
+    <color name="teal_dark_light_transparent">#8000796B</color>
 </resources>
