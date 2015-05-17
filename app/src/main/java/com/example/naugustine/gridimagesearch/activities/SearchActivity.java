@@ -98,7 +98,7 @@ public class SearchActivity extends ActionBarActivity {
     // Invokes the searchClient to execute the request
     private void loadData(String query, int page) {
         // Execute GET request
-        searchClient.getImages(query, page, new JsonHttpResponseHandler() {
+        searchClient.getImages(query, page, advancedFilters, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // Remove the progressbar
