@@ -34,7 +34,6 @@ public class RetryDialogFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 ImageDisplayActivity activity = (ImageDisplayActivity) getActivity();
                 activity.showFullImage();
-                // on success
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override

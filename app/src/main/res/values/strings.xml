@@ -8,4 +8,53 @@
     <string name="image_result">Image Result</string>
     <string name="image_title">Image Title</string>
     <string name="title_activity_image_display"></string>
+
+    <string name="advanced_filters">Advanced Filters</string>
+    <string name="color_filter">Color Filter</string>
+    <string name="type_filter">Type Filter</string>
+    <string name="size_filter">Size Filter</string>
+    <string name="site_filter">Site Filter</string>
+    <string name="safety_filter">Safety Level</string>
+    <string name="site_hint"> eg. photobucket.com</string>
+
+    <string-array name="imgcolor">
+        <item>Any</item>
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Brown</item>
+        <item>Gray</item>
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Rrd</item>
+        <item>Teal</item>
+        <item>White</item>
+        <item>Yellow</item>
+    </string-array>
+
+    <string-array name="imgsize">
+        <item>Any</item>
+        <item>Icon</item>
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>XLarge</item>
+        <item>XXLarge</item>
+        <item>Huge</item>
+    </string-array>
+
+    <string-array name="imgtype">
+        <item>Any</item>
+        <item>Face</item>
+        <item>Photo</item>
+        <item>Clipart</item>
+        <item>Lineart</item>
+    </string-array>
+
+    <string-array name="safety_level">
+        <item>Moderate</item>
+        <item>Active</item>
+        <item>Off</item>
+    </string-array>
 </resources>

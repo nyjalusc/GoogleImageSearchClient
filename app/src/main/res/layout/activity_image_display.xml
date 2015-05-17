@@ -4,11 +4,10 @@
     tools:context="com.example.naugustine.gridimagesearch.activities.ImageDisplayActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/ivImageResult"
         android:background="@color/black"
-        android:maxWidth="600dp"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:layout_alignParentTop="true"
@@ -17,6 +16,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+    <!--android:maxWidth="600dp"-->
 
     <ProgressBar
         android:id="@+id/pbLoadingImage"

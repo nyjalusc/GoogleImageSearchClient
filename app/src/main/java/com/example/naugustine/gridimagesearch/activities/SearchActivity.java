@@ -2,6 +2,7 @@ package com.example.naugustine.gridimagesearch.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
@@ -16,8 +17,10 @@ import com.example.naugustine.gridimagesearch.R;
 import com.example.naugustine.gridimagesearch.adapters.ImageResultsAdapter;
 import com.example.naugustine.gridimagesearch.factories.ImageResultFactory;
 import com.example.naugustine.gridimagesearch.interfaces.EndlessScrollListener;
+import com.example.naugustine.gridimagesearch.models.AdvancedFilters;
 import com.example.naugustine.gridimagesearch.models.ImageResult;
 import com.example.naugustine.gridimagesearch.net.SearchClient;
+import com.example.naugustine.gridimagesearch.views.AdvancedFiltersDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -34,6 +37,7 @@ public class SearchActivity extends ActionBarActivity {
     private ImageResultsAdapter aImageResults;
     private SearchClient searchClient;
     private ProgressBar progressBar;
+    private static AdvancedFilters advancedFilters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,13 @@ public class SearchActivity extends ActionBarActivity {
         // Get reference to the progressbar
         progressBar = (ProgressBar) findViewById(R.id.pbLoadingImage);
         progressBar.setVisibility(View.INVISIBLE);
+        initFiltersModel();
+    }
+
+    // Initialize a single instance of Advanced Filter settings
+    private void initFiltersModel() {
+        advancedFilters = new AdvancedFilters();
+        advancedFilters.init();
     }
 
     // Instantiates datasources, adapter and the connects the adapter to the view
@@ -107,6 +118,15 @@ public class SearchActivity extends ActionBarActivity {
         });
     }
 
+    // Invoke the advanced filters settings fragment
+    private void showAdvancedFilters() {
+        FragmentManager fm = getSupportFragmentManager();
+        // This is how you pass data from an activity to a fragment
+        // Passing the single instance of filters model
+        AdvancedFiltersDialog settingsDialog = AdvancedFiltersDialog.newInstance(advancedFilters);
+        settingsDialog.show(fm, "fragment_advanced_filters");
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -145,6 +165,7 @@ public class SearchActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            showAdvancedFilters();
             return true;
         }
 
