@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.naugustine.gridimagesearch.activities.ImageDisplayActivity">
 
-    <ImageView
+    <it.sephiroth.android.library.imagezoom.ImageViewTouch
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/ivImageResult"

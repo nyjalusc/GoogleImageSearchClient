@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.naugustine.gridimagesearch.R;
@@ -29,10 +28,12 @@ import com.example.naugustine.gridimagesearch.views.RetryDialogFragment;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import it.sephiroth.android.library.imagezoom.ImageViewTouch;
+
 public class ImageDisplayActivity extends ActionBarActivity implements RetryDialogFragment.DialogResultListener{
 
     private ProgressBar progressBar;
-    private ImageView ivImageResult;
+    private ImageViewTouch ivImageResult;
     private ImageResult imageResult;
     private ShareActionProvider miShareAction;
     private ConnectivityChecker connectivityChecker;
@@ -76,7 +77,7 @@ public class ImageDisplayActivity extends ActionBarActivity implements RetryDial
         // Get the url from intent
         imageResult = (ImageResult) getIntent().getSerializableExtra("result");
         // Find the image
-        ivImageResult = (ImageView) findViewById(R.id.ivImageResult);
+        ivImageResult = (ImageViewTouch) findViewById(R.id.ivImageResult);
         // Load the image using Picasso
         Picasso.with(this).load(imageResult.getFullURL()).error(R.drawable.error_loading).into(ivImageResult, new Callback() {
             @Override
@@ -112,8 +113,8 @@ public class ImageDisplayActivity extends ActionBarActivity implements RetryDial
     // Gets the image URI and setup the associated share intent to hook into the provider
     public void setupShareIntent() {
         // Fetch Bitmap Uri locally
-        ImageView ivImage = (ImageView) findViewById(R.id.ivImageResult);
-        Uri bmpUri = getLocalBitmapUriBasic(ivImage); // see previous remote images section
+        ImageViewTouch ivImage = (ImageViewTouch) findViewById(R.id.ivImageResult);
+        Uri bmpUri = getLocalBitmapUriBasic(); // see previous remote images section
         // Create share intent as described above
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
@@ -124,8 +125,8 @@ public class ImageDisplayActivity extends ActionBarActivity implements RetryDial
     }
 
     // Returns the URI path to the Bitmap displayed in specified ImageView
-    public Uri getLocalBitmapUriBasic(ImageView imageView) {
-        ImageView siv = (ImageView) findViewById(R.id.ivImageResult);
+    public Uri getLocalBitmapUriBasic() {
+        ImageViewTouch siv = (ImageViewTouch) findViewById(R.id.ivImageResult);
         Drawable mDrawable = siv.getDrawable();
         Bitmap mBitmap = ((BitmapDrawable)mDrawable).getBitmap();
 
