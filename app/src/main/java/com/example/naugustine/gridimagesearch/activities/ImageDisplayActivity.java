@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,16 +25,18 @@ import android.widget.ProgressBar;
 
 import com.example.naugustine.gridimagesearch.R;
 import com.example.naugustine.gridimagesearch.models.ImageResult;
+import com.example.naugustine.gridimagesearch.net.ConnectivityChecker;
 import com.example.naugustine.gridimagesearch.views.RetryDialogFragment;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-public class ImageDisplayActivity extends ActionBarActivity {
+public class ImageDisplayActivity extends ActionBarActivity implements RetryDialogFragment.DialogResultListener{
 
     private ProgressBar progressBar;
     private ImageView ivImageResult;
     private ImageResult imageResult;
     private ShareActionProvider miShareAction;
+    private ConnectivityChecker connectivityChecker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +52,25 @@ public class ImageDisplayActivity extends ActionBarActivity {
         showFullImage();
     }
 
+    // Check for network connectivity; Show the alertdialog to retry the request
+    private boolean networkCheck() {
+        connectivityChecker = new ConnectivityChecker();
+        if (!connectivityChecker.isNetworkAvailable(this)) {
+            Log.d("DEBUG", "Checking..");
+            showAlertDialog("No internet", "It looks like you have lost network connectivity");
+            return false;
+        }
+        return true;
+    }
+
     // Extracts the model object from intent and loads the image in the view
     public void showFullImage() {
+        progressBar = (ProgressBar) findViewById(R.id.pbLoadingImage);
+        progressBar.setVisibility(View.INVISIBLE);
+        // Check for internet connectivity
+        if (!networkCheck()) {
+            return;
+        }
         // Get reference to the progressbar
         progressBar = (ProgressBar) findViewById(R.id.pbLoadingImage);
         // Explicitly setting it to visible because this method is also called from the dialog fragment
@@ -70,16 +90,25 @@ public class ImageDisplayActivity extends ActionBarActivity {
             @Override
             public void onError() {
                 // May be show a dialog fragment
-                showAlertDialog();
+                showAlertDialog("Sorry!", "Failed to load the image");
                 progressBar.setVisibility(View.GONE);
             }
         });
     }
 
-    private void showAlertDialog() {
+    // Shows error alert dialog
+    private void showAlertDialog(String title, String message) {
         FragmentManager fm = getSupportFragmentManager();
-        RetryDialogFragment alertDialog = RetryDialogFragment.newInstance(ivImageResult, imageResult, "Failed to load");
+        RetryDialogFragment alertDialog = RetryDialogFragment.newInstance(title, message);
         alertDialog.show(fm, "fragment_alert");
+    }
+
+    // Gets called when the child fragment finishes
+    @Override
+    public void getRetryRequest(boolean retryRequest) {
+        if (retryRequest) {
+            showFullImage();
+        }
     }
 
     // Gets the image URI and setup the associated share intent to hook into the provider
