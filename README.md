@@ -22,6 +22,7 @@ Worked on this project for about **25 hours**
 - [x] Advanced: Replace Filter Settings Activity with a lightweight modal overlay. Used DialogFragment for this task.
 - [x] Advanced: Improve the user interface and experiment with image assets and/or styling and coloring
 - [x] Bonus: Use the StaggeredGridView to display improve the grid of image results
+- [x] Bonus: User can zoom or pan images displayed in full-screen detail view. I used [ImageViewZoom!](https://github.com/sephiroth74/ImageViewZoom) for this purpose. I couldn't do it using TouchImageView so i chose this alterate.
 
 #### Additonal tasks
 - [x] Created and experimented with a custom imageview to render card layout using DynamicHeightImageView and StaggeredGridView
@@ -33,4 +34,4 @@ References:
 http://www.rahuljiresal.com/2014/03/pinterest-style-layout-on-android/ (For card layout)
 
 Libraries:
-android-async-http, active-android, picasso, StaggeredGridView, DynamicHeightImageView
+android-async-http, active-android, picasso, StaggeredGridView, DynamicHeightImageView, [ImageViewZoom!](https://github.com/sephiroth74/ImageViewZoom)
