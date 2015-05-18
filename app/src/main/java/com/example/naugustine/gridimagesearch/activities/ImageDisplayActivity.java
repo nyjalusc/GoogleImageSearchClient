@@ -29,6 +29,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import it.sephiroth.android.library.imagezoom.ImageViewTouch;
+import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
 
 public class ImageDisplayActivity extends ActionBarActivity implements RetryDialogFragment.DialogResultListener{
 
@@ -78,6 +79,7 @@ public class ImageDisplayActivity extends ActionBarActivity implements RetryDial
         imageResult = (ImageResult) getIntent().getSerializableExtra("result");
         // Find the image
         ivImageResult = (ImageViewTouch) findViewById(R.id.ivImageResult);
+        ivImageResult.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
         // Load the image using Picasso
         Picasso.with(this).load(imageResult.getFullURL()).error(R.drawable.error_loading).into(ivImageResult, new Callback() {
             @Override
