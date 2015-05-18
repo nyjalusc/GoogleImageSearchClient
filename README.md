@@ -22,7 +22,7 @@ Worked on this project for about **25 hours**
 - [x] Advanced: Replace Filter Settings Activity with a lightweight modal overlay. Used DialogFragment for this task.
 - [x] Advanced: Improve the user interface and experiment with image assets and/or styling and coloring
 - [x] Bonus: Use the StaggeredGridView to display improve the grid of image results
-- [x] Bonus: User can zoom or pan images displayed in full-screen detail view. I chose an alternative library called [ImageViewZoom!](https://github.com/sephiroth74/ImageViewZoom) for this purpose because i was having some issues loading images using TouchImageView.
+- [x] Bonus: User can zoom or pan images displayed in full-screen detail view. I chose an alternative library called [ImageViewZoom](https://github.com/sephiroth74/ImageViewZoom) for this purpose because i was having some issues loading images using TouchImageView.
 
 #### Additonal tasks
 - [x] Created and experimented with a custom imageview to render card layout using DynamicHeightImageView and StaggeredGridView
@@ -30,8 +30,13 @@ Worked on this project for about **25 hours**
 - [x] Show progressbar in the details activity while the image is loading.
 - [x] Mimicked Google photos to show the details (second) activity. Actionbar is transparent and overlayed. It is designed to be as dark as possible to make the picture popout.
 
+#### Gif Walkthough
+![alt tag](https://github.com/nyjalusc/GoogleImageSearchClient/blob/master/walkthrough.gif)
+
+Link to the video can be found [here](https://cloud.box.com/s/zet7j1w734t9wj1p4n51i5zafz397hq7).
+
 References:
 http://www.rahuljiresal.com/2014/03/pinterest-style-layout-on-android/ (For card layout)
 
 Libraries:
-android-async-http, active-android, picasso, StaggeredGridView, DynamicHeightImageView, [ImageViewZoom!](https://github.com/sephiroth74/ImageViewZoom)
+android-async-http, active-android, picasso, StaggeredGridView, DynamicHeightImageView, [ImageViewZoom](https://github.com/sephiroth74/ImageViewZoom)
