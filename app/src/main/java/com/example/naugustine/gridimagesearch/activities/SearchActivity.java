@@ -156,9 +156,11 @@ public class SearchActivity extends ActionBarActivity implements RetryDialogFrag
         }
     }
 
+    // Main method of this activity
     private void startRequest() {
         // Check for internet connectivity
         if (!networkCheck()) {
+            // Do not proceed without internet
             return;
         }
         // Show the progress bar while the request is processed
@@ -179,22 +181,17 @@ public class SearchActivity extends ActionBarActivity implements RetryDialogFrag
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // Show the progress bar while the request is processed
-//                progressBar.setVisibility(View.VISIBLE);
                 searchQuery = query;
-//                aImageResults.clear();
-//                // Fetch first page of result and populate it in the adapter
-//                loadData(query, 0);
                 startRequest();
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
                 return false;
             }
-
         });
-
         return true;
     }
 

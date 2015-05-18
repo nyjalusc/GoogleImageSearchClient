@@ -14,7 +14,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.ShareActionProvider;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,7 +55,6 @@ public class ImageDisplayActivity extends ActionBarActivity implements RetryDial
     private boolean networkCheck() {
         connectivityChecker = new ConnectivityChecker();
         if (!connectivityChecker.isNetworkAvailable(this)) {
-            Log.d("DEBUG", "Checking..");
             showAlertDialog("No internet", "It looks like you have lost network connectivity");
             return false;
         }
